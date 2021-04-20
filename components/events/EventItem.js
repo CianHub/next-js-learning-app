@@ -8,9 +8,12 @@ export const EventItem = ({ event }) => {
     year: 'numeric',
   });
 
+  const formattedAddress = event.location.replace(', ', '\n');
+  const exploreLink = `/events/${event.id}`;
+
   return (
     <li>
-      <img src={event.image} alt={event.title} />
+      <img src={'/' + event.image} alt={event.title} />
       <div>
         <div>
           <h2>{event.title}</h2>
@@ -19,10 +22,10 @@ export const EventItem = ({ event }) => {
           <time>{readableDate}</time>
         </div>
         <div>
-          <address>{event.location}</address>
+          <address>{formattedAddress}</address>
         </div>
         <div>
-          <Link href="/">Explore Event</Link>
+          <Link href={exploreLink}>Explore Event</Link>
         </div>
       </div>
     </li>
