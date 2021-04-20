@@ -1,10 +1,11 @@
 import React from 'react';
+import { EventItem } from './EventItem';
 
 export const EventList = ({ events }) => {
   return (
     <ul>
       {events.map((event) => {
-        return <li key={event.id}>{event.title}</li>;
+        return <EventItem key={event.id} event={event} />;
       })}
     </ul>
   );
