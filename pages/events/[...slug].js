@@ -7,7 +7,6 @@ import { getFilteredEvents } from '../../dummy-data';
 export default function FilteredEventsPage() {
   const router = useRouter();
 
-  console.log(router.query);
   const filterData = router.query?.slug;
 
   if (!filterData) {
