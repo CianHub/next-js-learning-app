@@ -10,6 +10,8 @@ export default function EventsPage() {
   const router = useRouter();
 
   const onSearch = (year, month) => {
+    // if only year is provided will default to id  page
+    // if 2 will go to slug page
     const url = `/events/${year}/${month}`;
     router.push(url);
   };
