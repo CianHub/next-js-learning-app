@@ -3,6 +3,8 @@ import { Fragment } from 'react';
 import { EventList } from '../../components/events/EventList';
 import { getFilteredEvents } from '../../dummy-data';
 import ResultsTitle from '../../components/UI/results-title';
+import { Button } from '../../components/UI/Button';
+import ErrorAlert from '../../components/UI/error-alert';
 export default function FilteredEventsPage() {
   const router = useRouter();
 
@@ -23,7 +25,16 @@ export default function FilteredEventsPage() {
     filteredMonth > 12 ||
     filteredMonth < 1
   ) {
-    return <p>Invalid filter. Please adjust values.</p>;
+    return (
+      <Fragment>
+        <ErrorAlert>
+          <p>Invalid filter. Please adjust values.</p>
+        </ErrorAlert>
+        <div className="center">
+          <Button link="/events">Show All Events</Button>
+        </div>
+      </Fragment>
+    );
   }
 
   const events = getFilteredEvents({
@@ -32,7 +43,16 @@ export default function FilteredEventsPage() {
   });
 
   if (!events || events.length === 0) {
-    return <p>No Events Found</p>;
+    return (
+      <Fragment>
+        <ErrorAlert>
+          <p>No Events Found</p>
+        </ErrorAlert>
+        <div className="center">
+          <Button link="/events">Show All Events</Button>
+        </div>
+      </Fragment>
+    );
   }
 
   const date = new Date(filteredMonth - 1, filteredYear);
