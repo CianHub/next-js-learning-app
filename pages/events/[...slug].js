@@ -1,9 +1,8 @@
 import { useRouter } from 'next/router';
 import { Fragment } from 'react';
-import { EventItem } from '../../components/events/EventItem';
 import { EventList } from '../../components/events/EventList';
 import { getFilteredEvents } from '../../dummy-data';
-
+import ResultsTitle from '../../components/UI/results-title';
 export default function FilteredEventsPage() {
   const router = useRouter();
 
@@ -36,8 +35,11 @@ export default function FilteredEventsPage() {
     return <p>No Events Found</p>;
   }
 
+  const date = new Date(filteredMonth - 1, filteredYear);
+
   return (
     <Fragment>
+      <ResultsTitle date={date} />
       <EventList events={events} />
     </Fragment>
   );
