@@ -2,7 +2,7 @@ export const getAllEvents = async () => {
   const res = await fetch(
     'https://next-cour-default-rtdb.europe-west1.firebasedatabase.app/events.json'
   );
-  const data = res.json();
+  const data = await res.json();
 
   const events = [];
 
@@ -16,4 +16,24 @@ export const getAllEvents = async () => {
 export async function getFeaturedEvents() {
   const events = await getAllEvents();
   return events.filter((event) => event.isFeatured);
+}
+
+export async function getEventById(id) {
+  const events = await getAllEvents();
+  return events.find((event) => event.id === id);
+}
+
+export async function getFilteredEvents(dateFilter) {
+  const events = await getAllEvents();
+
+  const { year, month } = dateFilter;
+
+  let filteredEvents = events.filter((event) => {
+    const eventDate = new Date(event.date);
+    return (
+      eventDate.getFullYear() === year && eventDate.getMonth() === month - 1
+    );
+  });
+
+  return filteredEvents;
 }
