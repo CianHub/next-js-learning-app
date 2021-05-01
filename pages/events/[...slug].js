@@ -1,10 +1,24 @@
 import { Fragment } from 'react';
+import { useRouter } from 'next/router';
 import { EventList } from '../../components/events/EventList';
 import { getFilteredEvents } from '../../helpers/api.util.js';
 import ResultsTitle from '../../components/UI/results-title';
 import { Button } from '../../components/UI/Button';
 import ErrorAlert from '../../components/UI/error-alert';
+import useSWR from 'swr';
 export default function FilteredEventsPage(props) {
+  const router = useRouter();
+
+  const filterData = router.query.slug;
+
+  const { data, error } = useSWR(
+    'https://next-cour-default-rtdb.europe-west1.firebasedatabase.app/events.json'
+  );
+
+  if (!filterData) {
+    return <p className="center">Loading...</p>;
+  }
+
   if (props.hasError) {
     return (
       <Fragment>
@@ -45,8 +59,6 @@ export default function FilteredEventsPage(props) {
 
 export async function getServerSideProps(context) {
   const { params } = context;
-
-  console.log(params.slug);
 
   const filterData = params.slug;
 
