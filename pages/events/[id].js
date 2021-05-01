@@ -32,7 +32,7 @@ export default function EventDetailPage(props) {
 }
 
 export async function getStaticPaths() {
-  const events = await getAllEvents();
+  const events = await getFeaturedEvents();
 
   const paths = events.map((event) => {
     return { params: { id: event.id } };
@@ -46,5 +46,5 @@ export async function getStaticProps(context) {
 
   const event = await getEventById(id);
 
-  return { props: { event }, revalidate: 1000 };
+  return { props: { event }, revalidate: 30 };
 }
