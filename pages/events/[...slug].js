@@ -6,6 +6,7 @@ import ResultsTitle from '../../components/UI/results-title';
 import { Button } from '../../components/UI/Button';
 import ErrorAlert from '../../components/UI/error-alert';
 import useSWR from 'swr';
+import Head from 'next/head';
 export default function FilteredEventsPage(props) {
   const router = useRouter();
 
@@ -22,6 +23,10 @@ export default function FilteredEventsPage(props) {
   if (props.hasError) {
     return (
       <Fragment>
+        <Head>
+          <title>Error</title>
+          <meta name="description" content="error"></meta>
+        </Head>
         <ErrorAlert>
           <p>Invalid filter. Please adjust values.</p>
         </ErrorAlert>
@@ -37,6 +42,10 @@ export default function FilteredEventsPage(props) {
   if (!events || events.length === 0) {
     return (
       <Fragment>
+        <Head>
+          <title>Error</title>
+          <meta name="description" content="error"></meta>
+        </Head>
         <ErrorAlert>
           <p>No Events Found</p>
         </ErrorAlert>
@@ -51,6 +60,10 @@ export default function FilteredEventsPage(props) {
 
   return (
     <Fragment>
+      <Head>
+        <title>Event Results</title>
+        <meta name="description" content="event results"></meta>
+      </Head>
       <ResultsTitle date={newDate} />
       <EventList events={events} />
     </Fragment>

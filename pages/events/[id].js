@@ -1,13 +1,9 @@
 import { Fragment } from 'react';
-import {
-  getAllEvents,
-  getEventById,
-  getFeaturedEvents,
-} from '../../helpers/api.util.js';
+import { getEventById, getFeaturedEvents } from '../../helpers/api.util.js';
 import EventSummary from '../../components/UI/event-summary';
 import EventLogistics from '../../components/UI/event-logistics';
 import EventContent from '../../components/UI/event-content';
-import ErrorAlert from '../../components/UI/error-alert.js';
+import Head from 'next/head';
 
 export default function EventDetailPage(props) {
   const event = props.event;
@@ -21,6 +17,10 @@ export default function EventDetailPage(props) {
 
   return (
     <Fragment>
+      <Head>
+        <title>{event.title}</title>
+        <meta name="description" content={event.description}></meta>
+      </Head>
       <EventSummary title={event.title} />
       <EventLogistics
         date={event.date}
